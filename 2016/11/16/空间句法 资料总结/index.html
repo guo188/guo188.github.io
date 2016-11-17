@@ -36,7 +36,7 @@
 				<h1 class="site-name"><a href="/" title="轻舟">轻舟</a></h1>
 				<h2 class="blog-motto">万重山</h2>
 			</div>
-			<div class="navbar"><a class="navbutton navmobile" href="#" title="Menu">
+			<div class="navbar"><a class="navbutton navmobile" href="#" title="菜單">
 			</a></div>
 			<nav class="animated">
 				<ul>
@@ -77,11 +77,11 @@
 <div class="article-gallery">
   <div class="article-gallery-photos">
     
-      <a class="article-gallery-img fancybox" href="http://bruce.u.qiniudn.com/2013/11/27/reading/photos-0.jpg" rel="gallery_civmhro3f0002bs9bsjj68esn">
+      <a class="article-gallery-img fancybox" href="http://bruce.u.qiniudn.com/2013/11/27/reading/photos-0.jpg" rel="gallery_civmhucc60002gk9bzxzs9pz3">
         <img src="http://bruce.u.qiniudn.com/2013/11/27/reading/photos-0.jpg" itemprop="image">
       </a>
     
-      <a class="article-gallery-img fancybox" href="http://bruce.u.qiniudn.com/2013/11/27/reading/photos-1.jpg" rel="gallery_civmhro3f0002bs9bsjj68esn">
+      <a class="article-gallery-img fancybox" href="http://bruce.u.qiniudn.com/2013/11/27/reading/photos-1.jpg" rel="gallery_civmhucc60002gk9bzxzs9pz3">
         <img src="http://bruce.u.qiniudn.com/2013/11/27/reading/photos-1.jpg" itemprop="image">
       </a>
     
@@ -90,7 +90,7 @@
 
 		
 		<div id="toc" class="toc-article">
-			<strong class="toc-title">Contents</strong>
+			<strong class="toc-title">文章目錄</strong>
 		<ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-软件"><span class="toc-number">1.</span> <span class="toc-text">1.软件</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-空间句法常用网站"><span class="toc-number">2.</span> <span class="toc-text">2.空间句法常用网站</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-经典书籍"><span class="toc-number">3.</span> <span class="toc-text">3.经典书籍</span></a></li></ol>
 		</div>
 		
@@ -144,15 +144,15 @@
 </section>
 
 </div>  
-      <div class="openaside"><a class="navbutton" href="#" title="Show Sidebar"></a></div>
+      <div class="openaside"><a class="navbutton" href="#" title="顯示側邊欄"></a></div>
 
   <div id="toc" class="toc-aside">
-  <strong class="toc-title">Contents</strong>
+  <strong class="toc-title">文章目錄</strong>
   <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-软件"><span class="toc-number">1.</span> <span class="toc-text">1.软件</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-空间句法常用网站"><span class="toc-number">2.</span> <span class="toc-text">2.空间句法常用网站</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-经典书籍"><span class="toc-number">3.</span> <span class="toc-text">3.经典书籍</span></a></li></ol>
   </div>
 
 <div id="asidepart">
-<div class="closeaside"><a class="closebutton" href="#" title="Hide Sidebar"></a></div>
+<div class="closeaside"><a class="closebutton" href="#" title="隱藏側邊欄"></a></div>
 <aside class="clearfix">
 
   
@@ -311,27 +311,6 @@ $(document).ready(function(){
 </script> 
 
 
-
-<link rel="stylesheet" href="/fancybox/jquery.fancybox.css" media="screen" type="text/css">
-<script src="/fancybox/jquery.fancybox.pack.js"></script>
-<script type="text/javascript">
-$(document).ready(function(){ 
-  $('.article-content').each(function(i){
-    $(this).find('img').each(function(){
-      if ($(this).parent().hasClass('fancybox')) return;
-      var alt = this.alt;
-      if (alt) $(this).after('<span class="caption">' + alt + '</span>');
-      $(this).wrap('<a href="' + this.src + '" title="' + alt + '" class="fancybox"></a>');
-    });
-    $(this).find('.fancybox').each(function(){
-      $(this).attr('rel', 'article' + i);
-    });
-  });
-  if($.fancybox){
-    $('.fancybox').fancybox();
-  }
-}); 
-</script>
 
 
 <link rel="stylesheet" href="/fotorama/fotorama.css" media="screen" type="text/css">
