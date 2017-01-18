@@ -4,12 +4,19 @@
 <head>
   <meta charset="UTF-8">
   
-    <title>Space Syntax 空间句法资料总结 | 轻舟</title>
+    <title>道路数据爬取及空间句法分析总结 | 轻舟</title>
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=3, minimum-scale=1">
     
     <meta name="author" content="G">
     
-    <meta name="description" content="上面是摘要呼呼呼呼呼呼呼呼呼呼呼呵呵呵呵呵呵呵呵呵呵呵哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈">
+    <meta name="description" content="1 道路经纬度数据爬取
+目标：爬取道路的经纬度数据，并生成路网图
+数据来源：高德地图
+爬取思路：
+从各中渠道获取并整理道路名称
+模拟高德地图搜索道路（F12,Network)，爬取返回的经纬度数据(json格式)
+删除无效数据：高德无数据的、不在该城市的、编码错误的等
+识别json，转换为想要的数据">
     
     
     
@@ -62,56 +69,57 @@
 		<header class="article-info clearfix">
   <h1 itemprop="name">
     
-      <a href="/2016/11/16/空间句法 资料总结/" title="Space Syntax 空间句法资料总结" itemprop="url">Space Syntax 空间句法资料总结</a>
+      <a href="/2017/01/18/道路数据爬取及空间句法分析总结/" title="道路数据爬取及空间句法分析总结" itemprop="url">道路数据爬取及空间句法分析总结</a>
   </h1>
   <p class="article-author">By
     
       <a href="http://www.baidu.com" title="G">G</a>
     </p>
   <p class="article-time">
-    <time datetime="2016-11-15T16:00:00.000Z" itemprop="datePublished">2016-11-16</time>
+    <time datetime="2017-01-18T07:54:38.000Z" itemprop="datePublished">2017-01-18</time>
     
   </p>
 </header>
 
 	<div class="article-content">
 		
-<div class="article-gallery">
-  <div class="article-gallery-photos">
-    
-      <a class="article-gallery-img fancybox" href="http://bruce.u.qiniudn.com/2013/11/27/reading/photos-0.jpg" rel="gallery_ciy2scb0u0003hg9b3pyt3q1w">
-        <img src="http://bruce.u.qiniudn.com/2013/11/27/reading/photos-0.jpg" itemprop="image">
-      </a>
-    
-      <a class="article-gallery-img fancybox" href="http://bruce.u.qiniudn.com/2013/11/27/reading/photos-1.jpg" rel="gallery_ciy2scb0u0003hg9b3pyt3q1w">
-        <img src="http://bruce.u.qiniudn.com/2013/11/27/reading/photos-1.jpg" itemprop="image">
-      </a>
-    
-  </div>
-</div>
-
 		
 		<div id="toc" class="toc-article">
 			<strong class="toc-title">Contents</strong>
-		<ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-软件"><span class="toc-number">1.</span> <span class="toc-text">1.软件</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-空间句法常用网站"><span class="toc-number">2.</span> <span class="toc-text">2.空间句法常用网站</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-经典书籍"><span class="toc-number">3.</span> <span class="toc-text">3.经典书籍</span></a></li></ol>
+		<ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-道路经纬度数据爬取"><span class="toc-number">1.</span> <span class="toc-text">1 道路经纬度数据爬取</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-空间句法分析"><span class="toc-number">2.</span> <span class="toc-text">2 空间句法分析</span></a></li></ol>
 		</div>
 		
-		<p>上面是摘要<br>呼呼呼呼呼呼呼呼呼呼呼<br>呵呵呵呵呵呵呵呵呵呵呵<br>哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈</p>
-<a id="more"></a>
-<p>[TOC]</p>
-<h3 id="1-软件"><a href="#1-软件" class="headerlink" title="1.软件"></a><strong>1.软件</strong></h3><p>Depthmap</p>
-<blockquote>
-<p><strong>depthmapX</strong> is a multi-platform software platform to perform a set of spatial network analyses designed to understand social processes within the built environment. It works at a variety of scales from building through small urban to whole cities or states. At each scale, the aim of the software is to produce a map of open space elements, connect them via some relationship (for example, intervisibility or overlap) and then perform graph analysis of the resulting network. The objective of the analysis is to derive variables which may have social or experiential significance.</p>
-</blockquote>
-<p>附：<br><a href="http://varoudis.github.io/depthmapX/" target="_blank" rel="external">Depthmap下载链接</a>（网页含编译后的软件，以及软件源代码）<br>编译运行源码时，需要使用Qt4版本，由于从Qt4到Qt5变化太大，所以想在Qt5上Qt4的工程，需要改很多，故建议使用Qt4版本，如4.8.6。<br>另外即使采用Qt4也会报一些错（至少我是这样……），主要问题在于条件编译，即<code>#if defined(_WIN32)</code> 下的内容需换成<code>else</code>里的。</p>
-<blockquote>
-<p><strong>条件编译</strong>：一般情况下，源程序中所有的行都参加编译。但有时希望对其中一部分内容只在满足一定条件下才进行编译，即对一部分内容指定编译条件，这就是“条件编译”（conditional compile）。</p>
-<p><strong>_WIN32</strong><br>Defined for applications for Win32 and Win64. Always defined.</p>
-</blockquote>
-<hr>
-<h3 id="2-空间句法常用网站"><a href="#2-空间句法常用网站" class="headerlink" title="2.空间句法常用网站"></a><strong>2.空间句法常用网站</strong></h3><p><a href="http://www.spacesyntax.net/" target="_blank" rel="external">http://www.spacesyntax.net/</a><br><a href="http://spacesyntax.org/" target="_blank" rel="external">http://spacesyntax.org/</a><br>……</p>
-<hr>
-<h3 id="3-经典书籍"><a href="#3-经典书籍" class="headerlink" title="3.经典书籍"></a><strong>3.经典书籍</strong></h3><p>《空间研究14  空间句法在中国》 段进、比尔·希列尔 等<br>《空间是机器——建筑组构理论》比尔•希利尔<br>《空间句法简明教程》深圳大学建筑研究所 2015<br>……</p>
+		<!--[TOC]-->
+<h3 id="1-道路经纬度数据爬取"><a href="#1-道路经纬度数据爬取" class="headerlink" title="1 道路经纬度数据爬取"></a>1 道路经纬度数据爬取</h3><ul>
+<li><strong>目标</strong>：爬取道路的经纬度数据，并生成路网图</li>
+<li><strong>数据来源</strong>：高德地图</li>
+<li><strong>爬取思路</strong>：<ul>
+<li>从各中渠道获取并整理道路名称</li>
+<li>模拟高德地图搜索道路（F12,Network)，爬取返回的经纬度数据(json格式)</li>
+<li>删除无效数据：高德无数据的、不在该城市的、编码错误的等</li>
+<li>识别json，转换为想要的数据</li>
+</ul>
+</li>
+<li><strong>遗憾</strong>：<ul>
+<li>未尝试多线程</li>
+<li>容易被封，需要手动拖拼图，证明是“人”……</li>
+</ul>
+</li>
+</ul>
+<h3 id="2-空间句法分析"><a href="#2-空间句法分析" class="headerlink" title="2 空间句法分析"></a>2 空间句法分析</h3><ul>
+<li><strong>软件</strong><ul>
+<li><code>Depthmap</code><a href="[Depthmap主页](http://varoudis.github.io/depthmapX/)">^note-1</a> 空间句法分析</li>
+<li><code>Axwoman</code><a href="[Axwoman主页](http://fromto.hig.se/~bjg/Axwoman.htm)">^note-2</a>（ArcGIS的插件） 空间句法分析</li>
+<li><code>MapInfo</code> 可画图等</li>
+</ul>
+</li>
+<li><strong>方法与说明</strong><ul>
+<li><code>Depthmap</code>：能输入DXF（mif似乎也能，但简单试了下，软件崩了……），并计算参数后，导出为csv等</li>
+<li><code>ArcGIS</code>：可以根据经纬度数据生成图（ArcToolbox-Samples-Data Management-Features-Create Features From File）<a href="[ArcGIS由坐标生成线的方法](http://wenku.baidu.com/link?url=GtZQ0t_z6bfaaSUqRT-g81D4a89kph5srmTVx1GmQNvtsQpFKvVk3Yd316-IDOSARelorM8IFR52SohfYTqHaxJIBTArTZ1Xjav-VXEUhAm&amp;qq-pf-to=pcqq.c2c)">^note-3</a></li>
+<li><code>MapInfo</code>：可输入mif，导出DXF</li>
+</ul>
+</li>
+</ul>
   
 	</div>
 		<footer class="article-footer clearfix">
@@ -121,7 +129,7 @@
 
 <div class="article-share" id="share">
 
-  <div data-url="http://www.baidu.com/2016/11/16/空间句法 资料总结/" data-title="Space Syntax 空间句法资料总结 | 轻舟" data-tsina="null" class="share clearfix">
+  <div data-url="http://www.baidu.com/2017/01/18/道路数据爬取及空间句法分析总结/" data-title="道路数据爬取及空间句法分析总结 | 轻舟" data-tsina="null" class="share clearfix">
   </div>
 
 </div>
@@ -130,19 +138,11 @@
 	
 <nav class="article-nav clearfix">
  
- <div class="prev" >
- <a href="/2017/01/18/道路数据爬取及空间句法分析总结/" title="道路数据爬取及空间句法分析总结">
-  <strong>PREVIOUS:</strong><br/>
-  <span>
-  道路数据爬取及空间句法分析总结</span>
-</a>
-</div>
-
 
 <div class="next">
-<a href="/2016/11/15/My-New-Post/"  title="My New Post">
+<a href="/2016/11/16/空间句法 资料总结/"  title="Space Syntax 空间句法资料总结">
  <strong>NEXT:</strong><br/> 
- <span>My New Post
+ <span>Space Syntax 空间句法资料总结
 </span>
 </a>
 </div>
@@ -159,7 +159,7 @@
 
   <div id="toc" class="toc-aside">
   <strong class="toc-title">Contents</strong>
-  <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-软件"><span class="toc-number">1.</span> <span class="toc-text">1.软件</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-空间句法常用网站"><span class="toc-number">2.</span> <span class="toc-text">2.空间句法常用网站</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-经典书籍"><span class="toc-number">3.</span> <span class="toc-text">3.经典书籍</span></a></li></ol>
+  <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-道路经纬度数据爬取"><span class="toc-number">1.</span> <span class="toc-text">1 道路经纬度数据爬取</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-空间句法分析"><span class="toc-number">2.</span> <span class="toc-text">2 空间句法分析</span></a></li></ol>
   </div>
 
 <div id="asidepart">
