@@ -1,0 +1,519 @@
+
+ <!DOCTYPE HTML>
+<html >
+<head>
+  <meta charset="UTF-8">
+  
+    <title>PDF文件拆分合并小工具 | 轻舟</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1,user-scalable=no">
+    
+    <meta name="author" content="G">
+    
+
+    
+    <meta name="description" content="近日遇毕设论文插入外文资料一事，涉及PDF文件拆分、合并，因不愿使用在线网站，故尝试找离线工具，最初使用福昕软件，然而仅有14天试用期，心想PDF拆分合并如此基础的功能，竟要付费版才可以使用，于是试着百度，发现python有包pyPdf可以直接实现，于是尝试之~">
+<meta property="og:type" content="article">
+<meta property="og:title" content="PDF文件拆分合并小工具">
+<meta property="og:url" content="http://www.baidu.com/2017/06/18/PDF文件拆分合并小工具/index.html">
+<meta property="og:site_name" content="轻舟">
+<meta property="og:description" content="近日遇毕设论文插入外文资料一事，涉及PDF文件拆分、合并，因不愿使用在线网站，故尝试找离线工具，最初使用福昕软件，然而仅有14天试用期，心想PDF拆分合并如此基础的功能，竟要付费版才可以使用，于是试着百度，发现python有包pyPdf可以直接实现，于是尝试之~">
+<meta property="og:image" content="http://www.baidu.com/images/pyPdf界面.png">
+<meta property="og:updated_time" content="2017-06-18T16:04:30.154Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="PDF文件拆分合并小工具">
+<meta name="twitter:description" content="近日遇毕设论文插入外文资料一事，涉及PDF文件拆分、合并，因不愿使用在线网站，故尝试找离线工具，最初使用福昕软件，然而仅有14天试用期，心想PDF拆分合并如此基础的功能，竟要付费版才可以使用，于是试着百度，发现python有包pyPdf可以直接实现，于是尝试之~">
+<meta name="twitter:image" content="http://www.baidu.com/images/pyPdf界面.png">
+
+    
+    <link rel="alternative" href="atom.xml" title="轻舟" type="application/atom+xml">
+    
+    
+    <link rel="icon" href="/img/favicon.ico">
+    
+    
+    <link rel="apple-touch-icon" href="/img/profile.png">
+    <link rel="apple-touch-icon-precomposed" href="/img/profile.png">
+    
+    <link rel="stylesheet" href="/css/style.css">
+</head>
+
+  <body>
+    <header>
+      
+<div>
+		
+			<div id="imglogo">
+				<a href="/"><img src="/img/logo.svg" alt="轻舟" title="轻舟"/></a>
+			</div>
+			
+			<div id="textlogo">
+				<h1 class="site-name"><a href="/" title="轻舟">轻舟</a></h1>
+				<h2 class="blog-motto">万重山</h2>
+			</div>
+			<div class="navbar"><a class="navbutton navmobile" href="#" title="Menu">
+			</a></div>
+			<nav class="animated">
+				<ul>
+					<ul>
+					 
+						<li><a href="/">Home</a></li>
+					
+						<li><a href="/archives">Archives</a></li>
+					
+						<li><a href="/about">About</a></li>
+					
+						<li><a href="/tags">Tags</a></li>
+					
+						<li><a href="/categories">Categories</a></li>
+					
+					<li>
+ 					
+						<form class="search" action="" target="_blank">
+							<label>Search</label>
+						<input name="s" type="hidden" value= null ><input type="text" name="q" size="30" placeholder="Search"><br>
+						</form>
+					
+					</li>
+				</ul>
+			</nav>			
+</div>
+    </header>
+    <div id="container">
+      <div id="main" class="post" itemscope itemprop="blogPost">
+  
+	<article itemprop="articleBody"> 
+		<header class="article-info clearfix">
+  <h1 itemprop="name">
+    
+      <a href="/2017/06/18/PDF文件拆分合并小工具/" title="PDF文件拆分合并小工具" itemprop="url">PDF文件拆分合并小工具</a>
+  </h1>
+  <p class="article-author">By
+       
+		<a href="/about" title="G" target="_blank" itemprop="author">G</a>
+		
+  <p class="article-time">
+    <time datetime="2017-06-18T12:21:11.000Z" itemprop="datePublished"> Published 2017-06-18</time>
+    
+  </p>
+</header>
+	<div class="article-content">
+		
+		<div id="toc" class="toc-article">
+			<strong class="toc-title">Contents</strong>
+		
+			<ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#pyPdf"><span class="toc-number">1.</span> <span class="toc-text">pyPdf</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#"><span class="toc-number"></span> <span class="toc-text"></span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#GUI"><span class="toc-number">1.</span> <span class="toc-text">GUI</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#-1"><span class="toc-number"></span> <span class="toc-text"></span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#结果"><span class="toc-number">1.</span> <span class="toc-text">结果</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#-2"><span class="toc-number"></span> <span class="toc-text"></span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#其他"><span class="toc-number">1.</span> <span class="toc-text">其他</span></a></li></ol>
+		
+		</div>
+		
+		<p>近日遇毕设论文插入外文资料一事，涉及PDF文件拆分、合并，因不愿使用在线网站，故尝试找离线工具，最初使用福昕软件，然而仅有14天试用期，心想PDF拆分合并如此基础的功能，竟要付费版才可以使用，于是试着百度，发现python有包pyPdf可以直接实现，于是尝试之~</p>
+<a id="more"></a>
+<h3 id="pyPdf"><a href="#pyPdf" class="headerlink" title="pyPdf"></a>pyPdf</h3><ul>
+<li><strong>下载</strong>：<a href="https://pypi.python.org/pypi/pyPdf" target="_blank" rel="external">链接</a></li>
+<li><strong>安装</strong>：解压包，在cmd下cd到包目录，执行<code>python setup.py build</code>、<code>python setup.py install</code></li>
+<li><strong>使用示例</strong>：参见<a href="http://pybrary.net/pyPdf/" target="_blank" rel="external">介绍网站</a>,示例代码如下：<figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">from</span> pyPdf <span class="keyword">import</span> PdfFileWriter, PdfFileReader</div><div class="line"></div><div class="line">output = PdfFileWriter()</div><div class="line">input1 = PdfFileReader(file(<span class="string">"document1.pdf"</span>, <span class="string">"rb"</span>))</div><div class="line"></div><div class="line"><span class="comment"># print the title of document1.pdf</span></div><div class="line"><span class="keyword">print</span> <span class="string">"title = %s"</span> % (input1.getDocumentInfo().title)</div><div class="line"></div><div class="line"><span class="comment"># add page 1 from input1 to output document, unchanged</span></div><div class="line">output.addPage(input1.getPage(<span class="number">0</span>))</div><div class="line"></div><div class="line"><span class="comment"># add page 2 from input1, but rotated clockwise 90 degrees</span></div><div class="line">output.addPage(input1.getPage(<span class="number">1</span>).rotateClockwise(<span class="number">90</span>))</div><div class="line"></div><div class="line"><span class="comment"># add page 3 from input1, rotated the other way:</span></div><div class="line">output.addPage(input1.getPage(<span class="number">2</span>).rotateCounterClockwise(<span class="number">90</span>))</div><div class="line"><span class="comment"># alt: output.addPage(input1.getPage(2).rotateClockwise(270))</span></div><div class="line"></div><div class="line"><span class="comment"># add page 4 from input1, but first add a watermark from another pdf:</span></div><div class="line">page4 = input1.getPage(<span class="number">3</span>)</div><div class="line">watermark = PdfFileReader(file(<span class="string">"watermark.pdf"</span>, <span class="string">"rb"</span>))</div><div class="line">page4.mergePage(watermark.getPage(<span class="number">0</span>))</div><div class="line"></div><div class="line"><span class="comment"># add page 5 from input1, but crop it to half size:</span></div><div class="line">page5 = input1.getPage(<span class="number">4</span>)</div><div class="line">page5.mediaBox.upperRight = (</div><div class="line">    page5.mediaBox.getUpperRight_x() / <span class="number">2</span>,</div><div class="line">    page5.mediaBox.getUpperRight_y() / <span class="number">2</span></div><div class="line">)</div><div class="line">output.addPage(page5)</div><div class="line"></div><div class="line"><span class="comment"># print how many pages input1 has:</span></div><div class="line"><span class="keyword">print</span> <span class="string">"document1.pdf has %s pages."</span> % input1.getNumPages()</div><div class="line"></div><div class="line"><span class="comment"># finally, write "output" to document-output.pdf</span></div><div class="line">outputStream = file(<span class="string">"document-output.pdf"</span>, <span class="string">"wb"</span>)</div><div class="line">output.write(outputStream)</div><div class="line">outputStream.close()</div></pre></td></tr></table></figure>
+</li>
+</ul>
+<h2 id=""><a href="#" class="headerlink" title=""></a><br></h2><h3 id="GUI"><a href="#GUI" class="headerlink" title="GUI"></a>GUI</h3><p>完成脚本程序后，考虑试着做个界面，最直接想到的就是在python里写界面，主要可以用包Tkinter、pyQt等可以使用，简单尝试Tkinter后，感觉不够直接，而且要想界面美观较费时，于是采用之前用过的C#窗体，这个所见即所得，只需要编写事件响应即可，其唯一难点在于C#调用python脚本。<br>针对此难点，主要参考博客 <a href="http://www.cnblogs.com/corerman/p/4731483.html" target="_blank" rel="external">C#调用python模块</a>,其大致过程如下：</p>
+<ul>
+<li>下载IronPython库的安装包，<a href="http://ironpython.codeplex.com/" target="_blank" rel="external">官网</a></li>
+<li>新建C#窗体工程，将IronPython安装目录中的两个DLL文件（IronPython.dll和Microsoft.Scripting.dll）添加进项目引用</li>
+<li>将python文件放入工程目录下，在VS解决方案下加入该文件，并修改该文件属性，“复制到输出目录”设为“始终复制”</li>
+<li><p>编写C#代码，主要涉及如下几部分</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">using IronPython.Hosting; //导入IronPython库文件</div><div class="line">using Microsoft.Scripting.Hosting; //导入微软脚本解释库文件</div><div class="line"></div><div class="line">ScriptRuntime pyRuntime = Python.CreateRuntime(); //创建一下运行环境</div><div class="line">dynamic obj=pyRuntime.UseFile(&quot;debug.py&quot;); //调用一个Python文件</div><div class="line">obj.pythonfunction(para1,para2); //调用Python文件中的求和函数</div></pre></td></tr></table></figure>
+</li>
+<li><p>当python脚本引用了第三方模块时（比如此例的pyPdf）,需要调整python的sys.path，这里参考了<a href="http://blog.csdn.net/csxiaoyaojianxian/article/details/68954929" target="_blank" rel="external">博客1</a>、<a href="http://blog.csdn.net/taonull/article/details/42923015" target="_blank" rel="external">博客2</a>,具体操作为，在python文件中，加入如下代码：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">import</span> sys</div><div class="line">sys.path.append(<span class="string">'D:\\Python27\\Lib'</span>)</div><div class="line">sys.path.append(<span class="string">'D:\\Python27\\Lib\\site-packages'</span>)</div></pre></td></tr></table></figure>
+</li>
+</ul>
+<h2 id="-1"><a href="#-1" class="headerlink" title=""></a><br></h2><h3 id="结果"><a href="#结果" class="headerlink" title="结果"></a>结果</h3><ul>
+<li><p>python代码</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">import</span> sys</div><div class="line">sys.path.append(<span class="string">'D:\\Python27\\Lib'</span>)</div><div class="line">sys.path.append(<span class="string">'D:\\Python27\\Lib\\site-packages'</span>)</div><div class="line"></div><div class="line"><span class="comment"># splitFileName = "pdf_test.pdf"</span></div><div class="line"><span class="comment"># startPage = 5</span></div><div class="line"><span class="comment"># endPage = 8</span></div><div class="line"><span class="comment"># outputFileName = "pdf_output.pdf"</span></div><div class="line"></div><div class="line"><span class="function"><span class="keyword">def</span> <span class="title">splitPdf</span><span class="params">(splitFileName,startPage,endPage,outputFileName)</span>:</span></div><div class="line">	<span class="keyword">if</span> startPage &gt; endPage <span class="keyword">or</span> startPage &lt; <span class="number">0</span> <span class="keyword">or</span> endPage &lt; <span class="number">0</span>:</div><div class="line">		<span class="keyword">print</span> <span class="string">"the num of page is error"</span></div><div class="line">		<span class="keyword">return</span></div><div class="line">	<span class="keyword">from</span> pyPdf <span class="keyword">import</span> PdfFileWriter, PdfFileReader</div><div class="line">	outputFile = PdfFileWriter()</div><div class="line">	inputFile = PdfFileReader(file(splitFileName,<span class="string">"rb"</span>))</div><div class="line">	<span class="keyword">for</span> i <span class="keyword">in</span> range(startPage<span class="number">-1</span>,endPage):</div><div class="line">		cur_page = inputFile.getPage(i)</div><div class="line">		outputFile.addPage(cur_page)</div><div class="line">	outputStream = file(outputFileName,<span class="string">"wb"</span>)</div><div class="line">	outputFile.write(outputStream)</div><div class="line">	outputStream.close()</div><div class="line">	<span class="keyword">print</span> <span class="string">"Splitting is sucessful!"</span></div><div class="line">	<span class="keyword">return</span></div><div class="line"></div><div class="line"></div><div class="line"><span class="comment"># mergeFile1Name = "pdf_test.pdf"</span></div><div class="line"><span class="comment"># mergeFile2Name = "pdf_output.pdf"</span></div><div class="line"><span class="comment"># outputFileName = "pdf_merge_output.pdf"</span></div><div class="line"></div><div class="line"><span class="function"><span class="keyword">def</span> <span class="title">mergePdf</span><span class="params">(mergeFile1Name,mergeFile2Name,outputFileName)</span>:</span></div><div class="line">	<span class="keyword">from</span> pyPdf <span class="keyword">import</span> PdfFileWriter, PdfFileReader</div><div class="line">	outputFile = PdfFileWriter()</div><div class="line">	inputFile1 = PdfFileReader(file(mergeFile1Name,<span class="string">"rb"</span>))</div><div class="line">	inputFile2 = PdfFileReader(file(mergeFile2Name,<span class="string">"rb"</span>))</div><div class="line">	<span class="keyword">for</span> i <span class="keyword">in</span> range(<span class="number">0</span>,inputFile1.getNumPages()):</div><div class="line">		cur_page = inputFile1.getPage(i)</div><div class="line">		outputFile.addPage(cur_page)</div><div class="line">	<span class="keyword">for</span> i <span class="keyword">in</span> range(<span class="number">0</span>,inputFile2.getNumPages()):</div><div class="line">		cur_page = inputFile2.getPage(i)</div><div class="line">		outputFile.addPage(cur_page)</div><div class="line">	outputStream = file(outputFileName,<span class="string">"wb"</span>)</div><div class="line">	outputFile.write(outputStream)</div><div class="line">	outputStream.close()</div><div class="line">	<span class="keyword">print</span> <span class="string">"Merging is sucessful!"</span></div><div class="line">	<span class="keyword">return</span></div><div class="line"></div><div class="line"></div><div class="line"><span class="comment"># splitPdf(splitFileName,startPage,endPage,outputFileName)</span></div><div class="line"><span class="comment"># mergePdf(mergeFile1Name,mergeFile2Name,outputFileName)</span></div></pre></td></tr></table></figure>
+</li>
+<li><p>C#代码</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div></pre></td><td class="code"><pre><div class="line">using System;</div><div class="line">using System.Collections.Generic;</div><div class="line">using System.ComponentModel;</div><div class="line">using System.Data;</div><div class="line">using System.Drawing;</div><div class="line">using System.Linq;</div><div class="line">using System.Text;</div><div class="line">using System.Threading.Tasks;</div><div class="line">using System.Windows.Forms;</div><div class="line">using IronPython.Hosting; //导入IronPython库文件</div><div class="line">using Microsoft.Scripting.Hosting; //导入微软脚本解释库文件</div><div class="line"></div><div class="line">namespace PDF_split_merge</div><div class="line">&#123;</div><div class="line">    public partial class Form1 : Form</div><div class="line">    &#123;</div><div class="line">        public Form1()</div><div class="line">        &#123;</div><div class="line">            InitializeComponent();</div><div class="line">        &#125;</div><div class="line"></div><div class="line">        private void bSplit_Click(object sender, EventArgs e)</div><div class="line">        &#123;</div><div class="line">            string split_file_name = splitFileName.Text;</div><div class="line">            int sPage = Convert.ToInt32(startPage.Text);</div><div class="line">            int ePage = Convert.ToInt32(endPage.Text);</div><div class="line">            string output_file_name = splitOutputFileName.Text;</div><div class="line">            ScriptRuntime pyRuntime = Python.CreateRuntime(); //创建一下运行环境</div><div class="line">            dynamic obj=pyRuntime.UseFile(&quot;pdf.py&quot;); //调用一个Python文件</div><div class="line">            obj.splitPdf(split_file_name, sPage, ePage, output_file_name);</div><div class="line">            MessageBox.Show(&quot;PDF文件划分成功！&quot;, &quot;执行结果&quot;);</div><div class="line">        &#125;</div><div class="line"></div><div class="line">        private void bMerge_Click(object sender, EventArgs e)</div><div class="line">        &#123;</div><div class="line">            string merge_file1_name = mergeFile1Name.Text;</div><div class="line">            string merge_file2_name = mergeFile2Name.Text;</div><div class="line">            string output_file_name = mergeOutputFileName.Text;</div><div class="line">            ScriptRuntime pyRuntime = Python.CreateRuntime(); //创建一下运行环境</div><div class="line">            dynamic obj = pyRuntime.UseFile(&quot;pdf.py&quot;); //调用一个Python文件</div><div class="line">            obj.mergePdf(merge_file1_name, merge_file2_name, output_file_name);</div><div class="line">            MessageBox.Show(&quot;PDF文件合并成功！&quot;, &quot;执行结果&quot;);</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+</li>
+<li><p>界面<br><img src="/images/pyPdf界面.png" alt=""></p>
+</li>
+</ul>
+<h2 id="-2"><a href="#-2" class="headerlink" title=""></a><br></h2><h3 id="其他"><a href="#其他" class="headerlink" title="其他"></a>其他</h3><ul>
+<li>功能实现不完美，比如中文路径、没弄文件选择只弄输入路径、help部分</li>
+<li>加入界面后的PDF分割可能会有问题，目前发现对一个ppt转出的pdf文件进行分割后，分割出的文件中有文本框丢失的情况出现，原因暂不明……（不过该文本框曾在毕设答辩时出现自己电脑正常，教室电脑会因文本框略窄导致换行的问题）</li>
+<li>目前发现，PDF-Viewer软件挺好，注释功能丰富，也能进行pdf分割合并，个人设定灵活等，正在试用中</li>
+</ul>
+  
+	</div>
+		<footer class="article-footer clearfix">
+<div class="article-catetags">
+
+
+  <div class="article-tags">
+  
+  <span></span> <a href="/tags/python/">python</a><a href="/tags/C/">C#</a>
+  </div>
+
+</div>
+
+
+
+</footer>
+
+   	       
+	</article>
+	
+<nav class="article-nav clearfix">
+ 
+
+<div class="next">
+<a href="/2017/06/07/毕业自我鉴定/"  title="毕业自我鉴定 好文摘录">
+ <span>毕业自我鉴定 好文摘录
+</span>
+</a>
+</div>
+
+</nav>
+
+	
+<section id="comments" class="comment">
+	<div class="ds-thread" data-thread-key="2017/06/18/PDF文件拆分合并小工具/" data-title="PDF文件拆分合并小工具" data-url="http://www.baidu.com/2017/06/18/PDF文件拆分合并小工具/"></div>
+</section>
+
+
+</div>  
+      <div class="openaside"><a class="navbutton" href="#" title="Show Sidebar"></a></div>
+
+<div id="asidepart">
+<div class="closeaside"><a class="closebutton" href="#" title="Hide Sidebar"></a></div>
+<aside class="clearfix">
+<div id="authorInfo">
+	
+		<div class="author-img"></div>		
+	
+	<div class="social-info" class="clearfix">
+		
+		<a href="http://weibo.com/6116592773" target="_blank" class="icon-weibo" title="微博"></a>
+		
+		
+		<a href="https://github.com/guo188" target="_blank" class="icon-github" title="github"></a>
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		<a href="mailto:abg555@163.com" target="_blank" class="icon-email" title="Email Me"></a>
+		
+
+	</div>
+</div>
+
+  
+
+  
+<div class="tagslist">
+	<p class="asidetitle">Tags</p>
+		<ul class="clearfix">
+		
+			
+				<li><a href="/tags/文艺/" title="文艺">文艺<sup>2</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/空间句法/" title="空间句法">空间句法<sup>2</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/视频/" title="视频">视频<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/ACM/" title="ACM">ACM<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/C/" title="C++">C++<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/python/" title="python">python<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/C/" title="C#">C#<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/古诗文/" title="古诗文">古诗文<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/杂记/" title="杂记">杂记<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/爬虫/" title="爬虫">爬虫<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/GIS/" title="GIS">GIS<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/R/" title="R">R<sup>1</sup></a></li>
+			
+		
+		</ul>
+</div>
+
+
+</aside>
+</div>
+    </div>
+    <footer><div id="footer" >
+		
+		
+
+		<p class="copyright">
+		Powered by <a href="http://hexo.io" target="_blank" title="hexo">hexo</a> and Theme by <a href="https://github.com/hsihohuang/kiddochan" target="_blank" title="Kiddochan">Kiddochan</a> © 2017 
+		
+		<a href="/about" target="_blank" title="G">G</a>
+		
+		
+		</p>
+</div>
+</footer>
+    <script src="/js/jquery-2.0.3.min.js"></script>
+<script src="/js/jquery.imagesloaded.min.js"></script>
+<script src="/js/gallery.js"></script>
+<script src="/js/jquery.qrcode-0.12.0.min.js"></script>
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  $('.navbar').click(function(){
+    $('header nav').toggleClass('shownav');
+  });
+  var myWidth = 0;
+  function getSize(){
+    if( typeof( window.innerWidth ) == 'number' ) {
+      myWidth = window.innerWidth;
+    } else if( document.documentElement && document.documentElement.clientWidth) {
+      myWidth = document.documentElement.clientWidth;
+    };
+  };
+  var m = $('#main'),
+      a = $('#asidepart'),
+      c = $('.closeaside'),
+      o = $('.openaside');
+  c.click(function(){
+    a.addClass('fadeOut').css('display', 'none');
+    o.css('display', 'block').addClass('fadeIn');
+    m.addClass('moveMain');
+  });
+  o.click(function(){
+    o.css('display', 'none').removeClass('beforeFadeIn');
+    a.css('display', 'block').removeClass('fadeOut').addClass('fadeIn');      
+    m.removeClass('moveMain');
+  });
+  $(window).scroll(function(){
+    o.css("top",Math.max(80,260-$(this).scrollTop()));
+  });
+  
+        getSize();
+        if (myWidth >= 1024) {
+          c.click();
+        }
+  
+  $(window).resize(function(){
+    getSize(); 
+    if (myWidth >= 1024) {
+      $('header nav').removeClass('shownav');
+    }else{
+      m.removeClass('moveMain');
+      a.css('display', 'block').removeClass('fadeOut');
+      o.css('display', 'none');
+        
+    }
+  });
+});
+</script>
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  var ai = $('.article-content>iframe'),
+      ae = $('.article-content>embed'),
+      t  = $('#toc'),
+      ta = $('#toc.toc-aside'),
+      o  = $('.openaside'),
+      c  = $('.closeaside');
+  if(ai.length>0){
+    ai.wrap('<div class="video-container" />');
+  };
+  if(ae.length>0){
+   ae.wrap('<div class="video-container" />');
+  };
+  c.click(function(){
+    ta.css('display', 'block').addClass('fadeIn');
+  });
+  o.click(function(){
+    ta.css('display', 'none');
+  });
+  $(window).scroll(function(){
+    ta.css("top",Math.max(140,320-$(this).scrollTop()));
+  });
+});
+</script>
+
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  var $this = $('.share'),
+      url = $this.attr('data-url'),
+      encodedUrl = encodeURIComponent(url),
+      title = $this.attr('data-title'),
+      tsina = $this.attr('data-tsina'),
+      description = $this.attr('description');
+  var html = [
+  '<div class="hoverqrcode clearfix"></div>',
+  '<a class="overlay" id="qrcode"></a>',
+  '<a href="https://www.facebook.com/sharer.php?u=' + encodedUrl + '" class="article-share-facebook" target="_blank" title="Facebook"></a>',
+  '<a href="https://twitter.com/intent/tweet?url=' + encodedUrl + '" class="article-share-twitter" target="_blank" title="Twitter"></a>',
+  '<a href="#qrcode" class="article-share-qrcode" title="微信"></a>',
+  '<a href="http://widget.renren.com/dialog/share?resourceUrl=' + encodedUrl + '&srcUrl=' + encodedUrl + '&title=' + title +'" class="article-share-renren" target="_blank" title="人人"></a>',
+  '<a href="http://service.weibo.com/share/share.php?title='+title+'&url='+encodedUrl +'&ralateUid='+ tsina +'&searchPic=true&style=number' +'" class="article-share-weibo" target="_blank" title="微博"></a>',
+  '<span title="Share to"></span>'
+  ].join('');
+  $this.append(html);
+
+  $('.hoverqrcode').hide();
+
+  var myWidth = 0;
+  function updatehoverqrcode(){
+    if( typeof( window.innerWidth ) == 'number' ) {
+      myWidth = window.innerWidth;
+    } else if( document.documentElement && document.documentElement.clientWidth) {
+      myWidth = document.documentElement.clientWidth;
+    };
+    var qrsize = myWidth > 1024 ? 200:100;
+    var options = {render: 'image', size: qrsize, fill: '#2ca6cb', text: url, radius: 0.5, quiet: 1};
+    var p = $('.article-share-qrcode').position();
+    $('.hoverqrcode').empty().css('width', qrsize).css('height', qrsize)
+                          .css('left', p.left-qrsize/2+20).css('top', p.top-qrsize-10)
+                          .qrcode(options);
+  };
+  $(window).resize(function(){
+    $('.hoverqrcode').hide();
+  });
+  $('.article-share-qrcode').click(function(){
+    updatehoverqrcode();
+    $('.hoverqrcode').toggle();
+  });
+  $('.article-share-qrcode').hover(function(){}, function(){
+      $('.hoverqrcode').hide();
+  });
+});   
+</script>
+
+
+
+<script type="text/javascript">
+  var duoshuoQuery = {short_name:"guo188"};
+  (function() {
+    var ds = document.createElement('script');
+    ds.type = 'text/javascript';ds.async = true;
+    ds.src = '//static.duoshuo.com/embed.js';
+    ds.charset = 'UTF-8';
+    (document.getElementsByTagName('head')[0] 
+    || document.getElementsByTagName('body')[0]).appendChild(ds);
+  })();
+</script> 
+
+
+
+
+
+
+
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css" media="screen" type="text/css">
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+<script type="text/javascript">
+$(document).ready(function(){ 
+  $('.article-content').each(function(i){
+    $(this).find('img').each(function(){
+      if ($(this).parent().hasClass('fancybox')) return;
+      var alt = this.alt;
+      if (alt) $(this).after('<span class="caption">' + alt + '</span>');
+      $(this).wrap('<a href="' + this.src + '" title="' + alt + '" class="fancybox"></a>');
+    });
+    $(this).find('.fancybox').each(function(){
+      $(this).attr('rel', 'article' + i);
+    });
+  });
+  if($.fancybox){
+    $('.fancybox').fancybox();
+  }
+}); 
+</script>
+
+
+
+<!-- Analytics Begin -->
+
+
+
+
+
+<!-- Analytics End -->
+
+<!-- Totop Begin -->
+
+	<div id="totop">
+	<a title="Back to Top"><img src="/img/scrollup.png"/></a>
+	</div>
+	<script src="/js/totop.js"></script>
+
+<!-- Totop End -->
+
+<!-- MathJax Begin -->
+<!-- mathjax config similar to math.stackexchange -->
+
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    tex2jax: {
+      inlineMath: [ ['$','$'], ["\\(","\\)"] ],
+      processEscapes: true
+    }
+  });
+</script>
+
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+      tex2jax: {
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+      }
+    });
+</script>
+
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for(i=0; i < all.length; i += 1) {
+            all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+    });
+</script>
+
+<script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+
+
+<!-- MathJax End -->
+
+<!-- Tiny_search Begin -->
+
+<!-- Tiny_search End -->
+
+  </body>
+</html>
